@@ -320,7 +320,6 @@ void update() {
                 playerTank.active = false;
                 addExplosion(playerTank.x + TANK_SIZE/2,playerTank.y + TANK_SIZE/2, EXPLOSION_FRAME_WIDTH, EXPLOSION_FRAME_HEIGHT, explosions);
                 
-                cout << "Player has been killed!" << endl;
             }
 
         }
@@ -884,7 +883,7 @@ int main(int argc, char* argv[]) {
             case GUIDE:
                 renderGuide();
                 break;
-            case PLAYING:
+            case PLAYING:{
             SDL_PumpEvents();
             const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
             if(currentKeyStates[SDL_SCANCODE_SPACE]||currentKeyStates[SDL_SCANCODE_UP] || currentKeyStates[SDL_SCANCODE_DOWN] || currentKeyStates[SDL_SCANCODE_LEFT] || currentKeyStates[SDL_SCANCODE_RIGHT]){
@@ -904,14 +903,13 @@ int main(int argc, char* argv[]) {
                 }
                 renderExplosions();
                 
-                // Hiển thị thời gian chơi
                 Uint32 currentTime = gameCompleted ? completionTime : (SDL_GetTicks() - gameStartTime);
                 string timeText = "Time: " + formatTime(currentTime);
                 renderText(timeText, 10, 10, SDL_Color{255, 0, 0, 255});
                 
-                // Kiểm tra kết thúc game
                 if (!playerTank.active || enemyTanks.empty()) {
                     stopBackgroundMusic();
+                    currentGameState = MENU;
                     bool showEndGameScreen = true;
                     Uint32 endGameStartTime = SDL_GetTicks();
                     
@@ -923,11 +921,7 @@ int main(int argc, char* argv[]) {
                         while (SDL_PollEvent(&event)) {
                             if (event.type == SDL_QUIT) {
                                 showEndGameScreen = false;
-                                running = false;
-                            }
-                            if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-                                showEndGameScreen = false;
-                                currentGameState = MENU;
+                                // running = false;
                             }
                             if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
                                 showEndGameScreen = false;
@@ -938,14 +932,18 @@ int main(int argc, char* argv[]) {
                                 explosions.clear();
                                 gameCompleted = false;
                                 mapData.clear();
+                                renderMenu();
+                                // SDL_DestroyRenderer(renderer);
+                                // SDL_RenderClear(renderer);
                                 
                             }
                         }
-                        
+                        // cout << "Ads";
                         SDL_RenderClear(renderer);
                         string endText = gameCompleted ? 
                         "Mission Complete! Time: " + formatTime(completionTime) : 
                         "Game Over! You were killed.";
+                         
                         
                         renderText(endText, SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 - 50, SDL_Color{255, 255, 255, 255});
                         renderText("Press ESC to return to menu", SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 + 20, SDL_Color{255, 255, 255, 255});
@@ -957,6 +955,7 @@ int main(int argc, char* argv[]) {
                 menu1sound = false;
                 menu2sound = false;
                 break;
+                }
             }
             
             SDL_RenderPresent(renderer);
