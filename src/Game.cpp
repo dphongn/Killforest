@@ -32,8 +32,8 @@ vector<Wall> Initialize_walls(string filename){
     wall_map.close();
     return walls;
 }
-vector<Tank> Initialize_enemies(){
-    ifstream enemies_map("C:/Users/dphong/Downloads/mygame/src/enemiesmap.txt");
+vector<Tank> Initialize_enemies(const char *file){
+    ifstream enemies_map(file);
     vector<Tank> enemies;
     Tank enemy;
     if (!enemies_map) { // Kiểm tra nếu file không mở được

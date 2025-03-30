@@ -787,7 +787,7 @@ void handleLevelSelectInput(SDL_Event& event) {
             loadWallTexture("map/map1/wall.png");
             walls = Initialize_walls("map/map1/wallmap.txt");
             Initialize_playerTank(playerTank, SCREEN_WIDTH, SCREEN_HEIGHT, TANK_SIZE);
-            enemyTanks = Initialize_enemies();
+            enemyTanks = Initialize_enemies("map/map1/enemiesmap.txt");
             bullets.clear();
             explosions.clear();
         } else if (map2Hovered) {
@@ -798,7 +798,7 @@ void handleLevelSelectInput(SDL_Event& event) {
             loadWallTexture("map/map2/wall.png");
             walls = Initialize_walls("map/map2/wallmap.txt");
             Initialize_playerTank(playerTank, SCREEN_WIDTH, SCREEN_HEIGHT, TANK_SIZE);
-            enemyTanks = Initialize_enemies();
+            enemyTanks = Initialize_enemies("map/map2/enemiesmap.txt");
             bullets.clear();
             explosions.clear();
         }
@@ -933,7 +933,7 @@ int main(int argc, char* argv[]) {
                                 showEndGameScreen = false;
                                 currentGameState = MENU;
                                 Initialize_playerTank(playerTank, SCREEN_WIDTH, SCREEN_HEIGHT, TANK_SIZE);
-                                enemyTanks = Initialize_enemies();
+                                enemyTanks.clear();
                                 bullets.clear();
                                 explosions.clear();
                                 gameCompleted = false;
