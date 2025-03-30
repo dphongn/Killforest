@@ -421,7 +421,7 @@ bool initSDL() {
         return false;
     }
 
-    window = SDL_CreateWindow("ICE KILL", 
+    window = SDL_CreateWindow("Kill Forest", 
                             SDL_WINDOWPOS_CENTERED, 
                             SDL_WINDOWPOS_CENTERED,
                             MAP_WIDTH * TILE_SIZE,
