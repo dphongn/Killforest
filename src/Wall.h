@@ -4,6 +4,8 @@
 struct Wall {
     int x, y;
     bool active;
+    bool active2;
 };
+
 
 #endif // WALL_H
